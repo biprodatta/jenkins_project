@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                docker build -t mywebapp .
+                sh "docker build -t mywebapp ."
             }
         }
         stage('Docker Login'){
@@ -18,17 +18,17 @@ pipeline {
         }
         stage('docker_push') {
             steps {
-                docker tag mywebapp biprodatta/mywebapp
-                docker push biprodatta/myrepo:v1
+                sh "docker tag mywebapp biprodatta/mywebapp"
+                sh "docker push biprodatta/myrepo:v1"
                 
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-                docker images
-                docker pull biprodatta/myrepo:v1
-                docker run -i -t -d -p 80:80 mywebapp
+                sh "docker images"
+                sh "docker pull biprodatta/myrepo:v1"
+                sh "docker run -i -t -d -p 80:80 mywebapp"
             }
         }
         stage('Deploy') {
