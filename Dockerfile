@@ -1,4 +1,4 @@
-FROM <Image>:<tag> AS base
+FROM centos:latest AS base
 WORKDIR /app
 USER root
 RUN set -ex && \
