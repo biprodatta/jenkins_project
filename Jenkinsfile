@@ -6,9 +6,20 @@ pipeline {
             steps {
                 echo 'Building..'
                 docker build -t mywebapp .
-                docker login
-                docker tag myfirstwebapp myusername/myfirstwebapp
-                docker push myusername/myfirstwebapp
+            }
+        }
+        stage('Docker Login'){
+        steps{
+            withCredentials([usernamePassword(credentialsId:'dockerid',usernameVariable:'USR',passwordVariable:'PWD')])
+            {
+                bat "docker login -u=${env.USR} -p=${env.PWD}"
+            }
+        }
+        }
+        stage('docker_push') {
+            steps {
+                docker tag mywebapp biprodatta/mywebapp
+                docker push biprodatta/myrepo:v1
                 
             }
         }
@@ -16,8 +27,8 @@ pipeline {
             steps {
                 echo 'Testing..'
                 docker images
-                docker pull myusername/myfirstwebapp
-                docker run -i -t -d -p 80:80 myfirstwebapp
+                docker pull biprodatta/myrepo:v1
+                docker run -i -t -d -p 80:80 mywebapp
             }
         }
         stage('Deploy') {
