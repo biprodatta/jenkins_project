@@ -1,28 +1,35 @@
-  pipeline {
-    agent {
-      node {
-        label "main"
-      } 
-    }
+pipeline {
+    agent any
 
-      stage('TF Init&Plan') {
-        steps {
-          sh 'terraform init'
-          sh 'terraform plan'
-        }      
-      }
-
-      stage('Approval') {
-        steps {
-          script {
+    stages {
+        stage('Initialize')
+        {
+            steps{
+                script{ 
+                    sh 'terraform init'
+                    sh 'terraform plan'
+                }
+            }
+        }
+        stage('approval') 
+        {
+            agent any
+            steps {
             def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
-          }
+            }
         }
-      }
-
-      stage('TF Apply') {
-        steps {
-          sh 'terraform apply -input=false'
+        stage('TF_Appy'){
+        steps{
+            sh 'terraform apply -input=false'
+            {
+                bat "docker login -u=${env.USR} -p=${env.PWD}"
+            }
         }
-      }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
     }
+}
