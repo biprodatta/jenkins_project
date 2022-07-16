@@ -21,9 +21,6 @@ pipeline {
         stage('TF_Appy'){
         steps{
             sh 'terraform apply -input=false'
-            {
-                bat "docker login -u=${env.USR} -p=${env.PWD}"
-            }
         }
         }
         stage('Deploy') {
