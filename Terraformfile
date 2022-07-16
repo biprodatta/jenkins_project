@@ -1,7 +1,7 @@
   pipeline {
     agent {
       node {
-        label "master"
+        label "main"
       } 
     }
 
@@ -25,5 +25,4 @@
           sh 'terraform apply -input=false'
         }
       }
-    } 
-  }
+    }
