@@ -6,8 +6,10 @@ pipeline {
         {
             steps{
                 script{ 
-                    sh 'terraform init'
-                    sh 'terraform plan'
+                    sh "pwd"
+                    sh "ls -ltr"
+                    sh "terraform init"
+                    sh "terraform plan"
                 }
             }
         }
