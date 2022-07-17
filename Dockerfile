@@ -20,7 +20,6 @@ RUN yum -y install wget
 RUN export VER="9.0.63"
 RUN wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.63/bin/apache-tomcat-9.0.63.tar.gz
 RUN tar -zvxf apache-tomcat-9.0.63.tar.gz
-RUN abc=`pwd`;
 RUN chmod +x apache-tomcat-9.0.63/bin/startup.sh 
 RUN chmod +x apache-tomcat-9.0.63/bin/shutdown.sh
-RUN $abc/apache-tomcat-9.0.63/bin/startup.sh
+RUN /app/apache-tomcat-9.0.63/bin/startup.sh
