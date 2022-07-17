@@ -33,7 +33,7 @@ pipeline {
             steps {
                 sh "docker tag mywebapp biprodatta/mywebapp"
                 sh "docker images"
-                sh "docker push biprodatta/mywebapp:v1"
+                sh "docker push biprodatta/mywebapp:latest"
                 
             }
         }
