@@ -39,10 +39,9 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
                 sh "docker images"
-                sh "docker pull biprodatta/myrepo:v1"
-                sh "docker run -i -t -d -p 80:80 mywebapp"
+                sh "docker pull biprodatta/mywebapp:latest"
+                sh "docker run -i -t -d -p 80:80 biprodatta/mywebapp:latest"
             }
         }
         stage('Deploy') {
