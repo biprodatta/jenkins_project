@@ -1,21 +1,15 @@
-data "aws_ami" "amazon-linux-2" {
- most_recent = true
+data "aws_ami" "amazon-2" {
+  most_recent = true
 
-
- filter {
-   name   = "owner-alias"
-   values = ["amazon"]
- }
-
-
- filter {
-   name   = "name"
-   values = ["amzn2-ami-hvm*"]
- }
+  filter {
+    name = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-ebs"]
+  }
+  owners = ["amazon"]
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.amazon-linux-2.id
+  ami           = data.amazon-2.id
   instance_type = "t3.micro"
 
   user_data = <<-EOL
