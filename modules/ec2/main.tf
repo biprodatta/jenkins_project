@@ -7,12 +7,15 @@ data "aws_ami" "amazon-2" {
   }
   owners = ["amazon"]
 }
+data "aws_security_group" "sg" {
+  id ="sg-00973a2eb6c626748"
+}
 
 resource "aws_instance" "web" {
   ami           = data.aws_ami.amazon-2.id
   instance_type = "t3.micro"
   key_name = "bipro_aws_key"
-  vpc_security_group_ids = "sg-00973a2eb6c626748"
+  vpc_security_group_ids = [data.aws_security_group.sg.id]
 
   user_data = <<-EOL
   #!/bin/bash -xe
