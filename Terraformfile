@@ -9,8 +9,8 @@ pipeline {
                     sh "pwd"
                     sh "ls -ltr"
                     sh "terraform init"
-                    sh "cat /tmp/credentials"
                     sh "terraform plan"
+                    sh "terraform apply --auto-approve"
                 }
             }
         }
