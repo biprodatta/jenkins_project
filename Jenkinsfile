@@ -15,7 +15,7 @@ pipeline {
         {
             agent any
             steps {
-                echo 'Building..'
+                echo 'Building docker image'
                 sh "whoami"
                 sh "echo $PATH"
                 sh "docker build -t mywebapp ."
