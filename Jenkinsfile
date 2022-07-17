@@ -32,7 +32,7 @@ pipeline {
         stage('docker_push') {
             steps {
                 sh "docker tag mywebapp biprodatta/mywebapp"
-                sh "docker iamges"
+                sh "docker images"
                 sh "docker push biprodatta/myrepo:v1"
                 
             }
