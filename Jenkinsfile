@@ -25,7 +25,7 @@ pipeline {
         steps{
             withCredentials([usernamePassword(credentialsId:'dockerid',usernameVariable:'USR',passwordVariable:'PWD')])
             {
-                bat "docker login -u=${env.USR} -p=${env.PWD}"
+                sh "docker login -u=${env.USR} -p=${env.PWD}"
             }
         }
         }
