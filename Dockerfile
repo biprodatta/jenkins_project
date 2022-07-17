@@ -17,7 +17,6 @@ RUN yum install -y maven
 RUN yum install -y curl 
 RUN yum install -y unzip
 RUN yum -y install wget
-RUN export VER="9.0.63"
 RUN wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.63/bin/apache-tomcat-9.0.63.tar.gz
 RUN tar -zvxf apache-tomcat-9.0.63.tar.gz
 RUN chmod +x apache-tomcat-9.0.63/bin/startup.sh 
