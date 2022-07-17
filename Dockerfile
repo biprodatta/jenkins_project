@@ -1,4 +1,4 @@
-FROM centos:latest AS base
+FROM centos:7 AS base
 WORKDIR /app
 USER root
 RUN set -ex && \
