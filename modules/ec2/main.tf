@@ -1,5 +1,18 @@
+data "aws_caller_identity" "current" {}
+
+data "aws_ami" "ec2_instance" {
+  most_recent = true
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["${data.aws_caller_identity.current.account_id}"]
+}
+
 resource "aws_instance" "web" {
-  ami           = ami-02d1e544b84bf7502
+  ami           = data.aws_ami.ec2_instance.id
   instance_type = "t3.micro"
 
   user_data = <<-EOL
