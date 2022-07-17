@@ -26,7 +26,7 @@ resource "aws_instance" "web" {
   sudo usermod -aG docker $USER
   systemctl start docker
   docker pull biprodatta/mywebapp:latest
-  docker run -i -t -d -p 8080:80 biprodatta/mywebapp:latest
+  docker run -i -t -d -p 8080:8080 biprodatta/mywebapp:latest
   EOL
 
   tags = {
