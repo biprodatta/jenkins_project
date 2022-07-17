@@ -37,16 +37,23 @@ pipeline {
                 
             }
         }
+        stage('deploy_terraform')
+        {
+            steps{
+                script{ 
+                    sh "pwd"
+                    sh "ls -ltr"
+                    sh "terraform init"
+                    sh "terraform plan"
+                    sh "terraform apply --auto-approve"
+                }
+            }
+        }
         stage('Test') {
             steps {
                 sh "docker images"
                 sh "docker pull biprodatta/mywebapp:latest"
                 sh "docker run -i -t -d -p 80:80 biprodatta/mywebapp:latest"
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
             }
         }
     }
