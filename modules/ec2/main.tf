@@ -21,7 +21,6 @@ resource "aws_instance" "web" {
   yum info docker
   yum install docker -y
   sudo usermod -aG docker $USER
-  chmod 666 /var/run/docker.sock
   systemctl start docker
   docker version
   EOL
