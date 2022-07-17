@@ -9,7 +9,7 @@ data "aws_ami" "amazon-2" {
 }
 
 resource "aws_instance" "web" {
-  ami           = data.amazon-2.id
+  ami           = data.aws_ami.amazon-2.id
   instance_type = "t3.micro"
 
   user_data = <<-EOL
