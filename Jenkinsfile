@@ -49,12 +49,5 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
-            steps {
-                sh "docker images"
-                sh "docker pull biprodatta/mywebapp:latest"
-                sh "docker run -i -t -d -p 80:80 biprodatta/mywebapp:latest"
-            }
-        }
     }
 }
