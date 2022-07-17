@@ -22,4 +22,5 @@ RUN wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.63/bin/apache-tomc
 RUN tar -zvxf apache-tomcat-9.0.63.tar.gz
 RUN chmod +x apache-tomcat-9.0.63/bin/startup.sh 
 RUN chmod +x apache-tomcat-9.0.63/bin/shutdown.sh
+RUN pwd
 RUN /app/apache-tomcat-9.0.63/bin/startup.sh
