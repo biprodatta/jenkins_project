@@ -6,6 +6,35 @@ here in this project, I have installed jenkins in my local and inatalled all req
 ## Introduction
 This is sample readme for terraform module
 <!-- BEGIN_AUTOMATED_TF_DOCS_BLOCK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
+
+## Providers
+
+No providers.
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_ec2"></a> [ec2](#module\_ec2) | ./modules/ec2 | n/a |
+
+## Resources
+
+No resources.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_region"></a> [region](#input\_region) | region | `string` | `"us-east-2"` | no |
+
+## Outputs
+
+No outputs.
 <!-- END_AUTOMATED_TF_DOCS_BLOCK -->
 ## Footer
 Contributor Names
