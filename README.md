@@ -37,4 +37,4 @@ No resources.
 No outputs.
 <!-- END_AUTOMATED_TF_DOCS_BLOCK -->
 ## Footer
-Contributor Names
+Bipro Datta
