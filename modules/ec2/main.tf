@@ -33,4 +33,3 @@ resource "aws_instance" "web" {
     Name = "terraform_project"
   }
 }
-
