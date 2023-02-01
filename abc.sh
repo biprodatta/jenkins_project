@@ -1,1 +1,1 @@
-echo bipro
+echo test
