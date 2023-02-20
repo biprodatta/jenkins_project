@@ -1,39 +1,60 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+# Starter pipeline
+name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
 
 trigger:
 - main
 
-resources:
-- repo: self
+pool: local
 
 variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'd3879973-4a7d-4573-9f3f-de4d0c2734f5'
-  imageRepository: 'biprodattajenkinsproject'
-  containerRegistry: 'biprodatta.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+  - name: name
+    value: 'tamops'
 
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+stages :
+  - stage: terraform
+    jobs:
+    - job: tf_run
+      continueOnError: false
+      steps:
+      - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+        displayName: install terraform
+        inputs:
+          terraformVersion: latest
+      - task: TerraformCLI@0
+        displayName: 'check terraform version'
+        inputs:
+          command: version
+      - task: TerraformCLI@0
+        displayName: 'terraform init'
+        inputs:
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          backendType: 'aws'
+          allowTelemetryCollection: true
+          backendServiceAws: 'aws-jenkins-new'
+          backendAwsRegion: 'us-east-2'
+          backendAwsBucket: 'bipro-s3bucket'
+          backendAwsKey: 'tf-backend/'
+      - task: TerraformCLI@0
+        displayName: 'terraform validate'
+        inputs:
+          command: 'validate'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          allowTelemetryCollection: true
+      - task: TerraformCLI@0
+        displayName: 'terraform plan'
+        inputs:
+          command: 'plan'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          allowTelemetryCollection: true
+          providerServiceAws: 'aws-jenkins-new'
+          providerAwsRegion: 'us-east-1'
+      - task: TerraformCLI@0
+        displayName: 'terraform apply'
+        inputs:
+          command: 'apply'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          allowTelemetryCollection: true
+          providerServiceAws: 'aws-jenkins-new'
+          providerAwsRegion: 'us-east-1'
 
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
