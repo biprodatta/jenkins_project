@@ -5,6 +5,7 @@ here in this project, I have installed jenkins in my local and inatalled all req
 
 # jenkins installation in amazon linux:
 
+```bash
 #!/bin/bash
 
 sudo yum update –y
@@ -15,3 +16,4 @@ sudo dnf install java-17-amazon-corretto -y
 sudo yum install jenkins -y
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
+```
